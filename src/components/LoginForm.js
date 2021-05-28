@@ -28,9 +28,9 @@ const LoginForm =({activateUser})=>{
         <div>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">Email:</label>
-                <input type="email" name="email" id="email" onChange={handleFormData}/>
+                <input type="email" name="email" id="email" value={formData.email} onChange={handleFormData}/>
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" onChange={handleFormData}/>
+                <input type="password" name="password" id="password" value={formData.password} onChange={handleFormData}/>
                 <input type="submit" value="Login" />
             </form>
         </div>

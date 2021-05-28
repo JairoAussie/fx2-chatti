@@ -18,13 +18,18 @@ const MessageForm =({loggedInUser, addMessage})=>{
         e.preventDefault()
         console.log(formData)
         addMessage(formData.text)
+        //clean the form after submitting
+        setFormData({
+            ...formData,
+            text: ""
+        })
     }
 
     return(
         <div>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="text">What's on your mind {loggedInUser}?</label>
-                <input type="text" name="text" id="text" onChange={handleFormData}/>
+                <input type="text" name="text" id="text" value={formData.text} onChange={handleFormData}/>
                 <input type="submit" value="Send" />
             </form>
         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
-const LoginForm =({activateUser})=>{
+const LoginForm =({history, activateUser})=>{
+    console.log(history)
     const initialFormData = {
         email: "",
         password: ""
@@ -20,7 +21,7 @@ const LoginForm =({activateUser})=>{
         //console.log("You clicked login: ", formData.email)
         //console.log(formData.password)
         activateUser(formData.email)
-
+        return history.push("/messages")
 
     }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const Navigation =({loggedInUser, activateUser})=>{
     function logout(e){
@@ -9,16 +10,17 @@ const Navigation =({loggedInUser, activateUser})=>{
 
     return(
         <div>
-            <a href="/">Home</a>
-            <a href="/">About</a>
+            <Link to="/messages">Home</Link>
+            <Link to="/about">About</Link>
             {loggedInUser ? 
                 <>
                     {loggedInUser}
-                    <a href="/" onClick={logout}>Logout</a>
+                    <Link to="/newmessage">Post a new message</Link>
+                    <Link to="/messages" onClick={logout}>Logout</Link>
                 </> 
             :   <>
-                    <a href="/">Login</a>
-                    <a href="/">Sign Up</a>
+                    <Link to="/login">Login</Link>
+                    <Link to="/login">Sign up</Link>
                     Guest
                 </>
             }

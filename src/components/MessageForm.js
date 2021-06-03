@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const MessageForm =({loggedInUser, addMessage})=>{
+const MessageForm =({history, loggedInUser, addMessage})=>{
     const initialFormData = {
         text: ""
     }
@@ -23,15 +23,21 @@ const MessageForm =({loggedInUser, addMessage})=>{
             ...formData,
             text: ""
         })
+        return history.push("/messages")
     }
 
     return(
         <div>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="text">What's on your mind {loggedInUser}?</label>
-                <input type="text" name="text" id="text" value={formData.text} onChange={handleFormData}/>
-                <input type="submit" value="Send" />
-            </form>
+            {loggedInUser?
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="text">What's on your mind {loggedInUser}?</label>
+                    <input type="text" name="text" id="text" value={formData.text} onChange={handleFormData}/>
+                    <input type="submit" value="Send" />
+                </form>
+            : 
+                <p>you're not logged in</p>
+            }
+            
         </div>
     )
 }

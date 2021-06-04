@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import About from './About'
 import NotFound from './NotFound'
@@ -8,12 +8,30 @@ import MessageForm from './MessageForm'
 import Messages from './Messages'
 import Message from './Message'
 import initialMessageList from '../data/message-list.json'
+import reducer from '../utils/reducer'
 const App = () => {
-  const [loggedInUser, setLoggedInUser] = useState("")
-  const [messageList, setMessageList] = useState([])
+  //define the initialstate
+  const initialstate ={
+    messageList: [],
+    loggedInUser: ""
+  }
+  //useReducer has two arguments
+  // reducer function
+  // initial state (same as useState)
+  //store is where the state is stored
+  //dispatch invoked the reducer function
+  const [store, dispatch] = useReducer(reducer, initialstate )
+  const {messageList, loggedInUser} = store
+
+  //const [loggedInUser, setLoggedInUser] = useState("")
+  //const [messageList, setMessageList] = useState([])
 
   function activateUser(name){
-    setLoggedInUser(name)
+    //setLoggedInUser(name)
+    dispatch({//action object
+      type: "setLoggedInUser",
+      data: name
+    })
   }
 
   function addMessage(text){
@@ -22,13 +40,23 @@ const App = () => {
       text: text, 
       user: loggedInUser
     }
-    setMessageList(
-      (messageList) => [message, ...messageList]
-    )
+    // setMessageList(
+    //   (messageList) => [message, ...messageList]
+    // )
+    //will run the reducer, and will send an object that is the action
+    dispatch({
+      type: "addMessage",
+      data: message 
+    })
   }
 
   useEffect(()=>{
-    setMessageList(initialMessageList)
+    //setMessageList(initialMessageList)
+    //will run the reducer, and will send an object that is the action
+    dispatch({
+        type: "setMessageList",
+        data: initialMessageList
+    })
   },[])
 
   function getMessage(id){

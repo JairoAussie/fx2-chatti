@@ -1,7 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import { useGlobalState } from '../utils/stateContext'
 
 const Navigation =({loggedInUser, activateUser})=>{
+
+    const {store, dispatch} = useGlobalState()
+
     function logout(e){
         e.preventDefault()
         console.log("logout")

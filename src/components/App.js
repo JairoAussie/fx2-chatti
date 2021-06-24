@@ -9,6 +9,7 @@ import Messages from './Messages'
 import Message from './Message'
 import initialMessageList from '../data/message-list.json'
 import reducer from '../utils/reducer'
+import { StateContext } from '../utils/stateContext'
 const App = () => {
   //define the initialstate
   const initialstate ={
@@ -71,31 +72,31 @@ const App = () => {
   return (
     <div >
       <h1>Chatti</h1>
-      
-      <BrowserRouter>
-        <Navigation loggedInUser={loggedInUser} activateUser={activateUser}/>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="messages" />
-          </Route>
-          <Route exact path="/messages" 
-            render={()=> <Messages messageList={messageList}/> } 
-          />
-          <Route exact path="/messages/:id" 
-            render={(props)=> <Message {...props} 
-              message={getMessage(props.match.params.id)}/>}
-          />
-          <Route exact path="/about" component={About}/>
-          <Route exact path="/login" 
-            render={(props)=> <LoginForm {...props} activateUser={activateUser} />}
-          />
-          <Route exact path="/newmessage" 
-            render={(props)=> <MessageForm {...props} loggedInUser={loggedInUser} addMessage={addMessage}/>}
-          />
-          <Route component={NotFound} />
-        </Switch>
-      </BrowserRouter>
-          
+      <StateContext.Provider value={{store, dispatch}}>
+        <BrowserRouter>
+          <Navigation loggedInUser={loggedInUser} activateUser={activateUser}/>
+          <Switch>
+            <Route exact path="/">
+              <Redirect to="messages" />
+            </Route>
+            <Route exact path="/messages" 
+              render={()=> <Messages messageList={messageList}/> } 
+            />
+            <Route exact path="/messages/:id" 
+              render={(props)=> <Message {...props} 
+                message={getMessage(props.match.params.id)}/>}
+            />
+            <Route exact path="/about" component={About}/>
+            <Route exact path="/login" 
+              render={(props)=> <LoginForm {...props} activateUser={activateUser} />}
+            />
+            <Route exact path="/newmessage" 
+              render={(props)=> <MessageForm {...props} loggedInUser={loggedInUser} addMessage={addMessage}/>}
+            />
+            <Route component={NotFound} />
+          </Switch>
+        </BrowserRouter>
+      </StateContext.Provider>    
     </div>
   )
 }

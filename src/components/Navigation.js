@@ -2,14 +2,19 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import { useGlobalState } from '../utils/stateContext'
 
-const Navigation =({loggedInUser, activateUser})=>{
+const Navigation =()=>{
 
     const {store, dispatch} = useGlobalState()
+    const {loggedInUser} = store
 
     function logout(e){
         e.preventDefault()
         console.log("logout")
-        activateUser("")
+        //activateUser("")
+        dispatch({//action object
+            type: "setLoggedInUser",
+            data: ""
+          })
     }
 
     return(

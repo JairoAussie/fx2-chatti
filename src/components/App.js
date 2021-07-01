@@ -15,7 +15,8 @@ const App = () => {
   //define the initialstate
   const initialstate ={
     messageList: [],
-    loggedInUser: ""
+    loggedInUser: sessionStorage.getItem("username") || null, 
+    auth: {token: sessionStorage.getItem("token") || null}
   }
   //useReducer has two arguments
   // reducer function

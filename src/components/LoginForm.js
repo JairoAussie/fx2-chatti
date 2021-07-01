@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useGlobalState } from '../utils/stateContext'
+import { signIn } from '../services/authService'
 
 const LoginForm =({history})=>{
     const {dispatch} = useGlobalState()
 
-    console.log(history)
+    //console.log(history)
     const initialFormData = {
         email: "",
         password: ""
@@ -24,10 +25,21 @@ const LoginForm =({history})=>{
         //console.log("You clicked login: ", formData.email)
         //console.log(formData.password)
         //activateUser(formData.email)
-        dispatch({//action object
-            type: "setLoggedInUser",
-            data: formData.email
-          })
+        signIn(formData)
+        .then(({username, jwt}) => {
+            sessionStorage.setItem("username", username)
+            sessionStorage.setItem("token", jwt)
+            dispatch({//action object
+                type: "setLoggedInUser",
+                data: username
+            })
+            dispatch({//action object
+                type: "setToken",
+                data: jwt
+            })
+        })
+        .catch()
+        
         return history.push("/messages")
 
     }

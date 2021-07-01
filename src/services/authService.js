@@ -6,6 +6,8 @@ export async function signUp(data){
     return response.data
 }
 
-export async function signIn(){
-    
+export async function signIn(data){
+    const response = await chattiAPI.post("/api/auth/sign_in", data)
+    console.log(response.data)
+    return response.data
 }

@@ -8,10 +8,10 @@
 //will receive an action that will modify the state
 //it will return a new copy of the state with the changes that action described
 //action is an object with two keys -> type and data
-export default function reducer(state, action){
-    switch(action.type){
+export default function reducer(state, action) {
+    switch (action.type) {
         //depending on the type we'll update the state in different ways
-        case "setMessageList":{
+        case "setMessageList": {
 
             //populate messageList with initialMessageList and return that copy of the state
             return {
@@ -19,7 +19,7 @@ export default function reducer(state, action){
                 messageList: action.data
             }
         }
-        case "addMessage":{
+        case "addMessage": {
             //add a new message to the list
             return {
                 ...state,
@@ -27,11 +27,22 @@ export default function reducer(state, action){
             }
         }
 
-        case "setLoggedInUser":{
+        case "setLoggedInUser": {
             //update loggedinUser's value
-            return{
+            return {
                 ...state,
                 loggedInUser: action.data
+            }
+        }
+
+        case "setToken": {
+            //update loggedinUser's value
+            return {
+                ...state,
+                auth: {
+                    ...state.auth,
+                    token: action.data
+                }
             }
         }
         default: return state

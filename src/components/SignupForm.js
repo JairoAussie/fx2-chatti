@@ -28,11 +28,17 @@ const SignupForm =({history})=>{
         //console.log(formData.password)
         //activateUser(formData.email)
         signUp(formData)
-        .then(user => {
+        .then(({username, jwt}) => {
+            sessionStorage.setItem("username", username)
+            sessionStorage.setItem("token", jwt)
             dispatch({//action object
                 type: "setLoggedInUser",
-                data: user.username
-              })
+                data: username
+            })
+            dispatch({//action object
+                type: "setToken",
+                data: jwt
+            })
         })
         .catch()
         

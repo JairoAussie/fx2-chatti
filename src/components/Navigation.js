@@ -11,10 +11,15 @@ const Navigation =()=>{
         e.preventDefault()
         console.log("logout")
         //activateUser("")
+        sessionStorage.clear()
         dispatch({//action object
             type: "setLoggedInUser",
-            data: ""
-          })
+            data: null
+        })
+        dispatch({//action object
+            type: "setToken",
+            data: null
+        })
 
     }
 

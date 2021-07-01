@@ -31,7 +31,8 @@ const MessageForm =({history})=>{
                   })
                 
             })
-            .catch(error => {console.log(error)})
+            .catch(error => {
+                console.log(error)})
         //addMessage(formData.text)
         //clean the form after submitting
         // setFormData({

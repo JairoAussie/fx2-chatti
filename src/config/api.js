@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const chattiAPI = axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: 'https://trolter-api-rails.herokuapp.com/'
 })
 
 chattiAPI.interceptors.request.use(req => {

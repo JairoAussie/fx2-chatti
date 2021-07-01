@@ -10,7 +10,7 @@ const Messages =()=>{
         <div>
             <h3>Messages</h3>
             {messageList.map((message, index)=>
-                <Message key={index} message={message}/>
+                <Message key={message.id} message={message}/>
             )}
         </div>
     )

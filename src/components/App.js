@@ -8,6 +8,7 @@ import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 import MessageForm from './MessageForm'
 import Messages from './Messages'
+import MyMessages from './MyMessages'
 import Message from './Message'
 import reducer from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
@@ -63,6 +64,7 @@ const App = () => {
               <Redirect to="messages" />
             </Route>
             <Route exact path="/messages"  component={Messages}/>
+            <Route exact path="/messages/user"  component={MyMessages}/>
             <Route exact path="/messages/:id" 
               render={(props)=> <Message {...props} 
                 message={getMessage(props.match.params.id)}/>}

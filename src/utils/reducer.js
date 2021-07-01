@@ -27,6 +27,17 @@ export default function reducer(state, action) {
             }
         }
 
+        case "deleteMessage": {
+            //add a new message to the list
+            const updatedList = state.messageList.filter(message => 
+                message.id !== parseInt(action.data)
+            )
+            return {
+                ...state,
+                messageList: updatedList
+            }
+        }
+
         case "setLoggedInUser": {
             //update loggedinUser's value
             return {

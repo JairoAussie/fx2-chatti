@@ -12,7 +12,7 @@ const SignupForm =({history})=>{
         password: "", 
         password_confirmation: ""
     }
-
+    const [error, setError] = useState("")
     const [formData, setFormData] = useState(initialFormData)
 
     function handleFormData(e){
@@ -39,15 +39,20 @@ const SignupForm =({history})=>{
                 type: "setToken",
                 data: jwt
             })
+            return history.push("/messages")
         })
-        .catch()
+        .catch(err => {
+            console.log(err)
+            setError(err.message)
+            //return history.push("/signup")
+        })
         
-        return history.push("/messages")
 
     }
 
     return(
         <div>
+            {error && <p>Error: {error}</p>}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="text">Username:</label>
                 <input type="text" name="username" id="username" value={formData.username} onChange={handleFormData}/>

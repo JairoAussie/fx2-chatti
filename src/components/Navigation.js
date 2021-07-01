@@ -15,6 +15,7 @@ const Navigation =()=>{
             type: "setLoggedInUser",
             data: ""
           })
+
     }
 
     return(
@@ -29,7 +30,7 @@ const Navigation =()=>{
                 </> 
             :   <>
                     <Link to="/login">Login</Link>
-                    <Link to="/login">Sign up</Link>
+                    <Link to="/signup">Sign up</Link>
                     Guest
                 </>
             }

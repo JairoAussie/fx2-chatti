@@ -1,13 +1,14 @@
 import React, { useEffect, useReducer } from 'react'
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
+import { getMessages } from '../services/messagesService'
 import About from './About'
 import NotFound from './NotFound'
 import Navigation from './Navigation'
 import LoginForm from './LoginForm'
+import SignupForm from './SignupForm'
 import MessageForm from './MessageForm'
 import Messages from './Messages'
 import Message from './Message'
-import initialMessageList from '../data/message-list.json'
 import reducer from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
 const App = () => {
@@ -32,10 +33,16 @@ const App = () => {
   useEffect(()=>{
     //setMessageList(initialMessageList)
     //will run the reducer, and will send an object that is the action
-    dispatch({
-        type: "setMessageList",
-        data: initialMessageList
-    })
+    console.log("effect")
+    getMessages()
+      .then((messages)=>{
+        dispatch({
+          type: "setMessageList",
+          data: messages
+      })
+      })
+      .catch(error => console.log(error))
+    
   },[])
 
   function getMessage(id){
@@ -61,6 +68,7 @@ const App = () => {
             />
             <Route exact path="/about" component={About}/>
             <Route exact path="/login" component={LoginForm} /> 
+            <Route exact path="/signup" component={SignupForm} /> 
             <Route exact path="/newmessage" component={MessageForm} />
             <Route component={NotFound} />
           </Switch>

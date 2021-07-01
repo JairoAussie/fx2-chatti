@@ -4,8 +4,7 @@ import { deleteMessage } from '../services/messagesService'
 import { useGlobalState } from '../utils/stateContext'
 
 const Message =({message, history})=>{
-    const {store, dispatch} = useGlobalState()
-    const {loggedInUser} = store
+    const {dispatch} = useGlobalState()
 
     function removeMessage(){
         deleteMessage(message.id)

@@ -7,6 +7,13 @@ export async function getMessages(){
     return response.data
 }
 
+export async function getMessageById(id){
+    //console.log("getMessages")
+    const response = await chattiAPI.get(`/api/messages/${id}`)
+    //console.log(response)
+    return response.data
+}
+
 export async function getMessagesByUser(username){
     //console.log("getMessages")
     const response = await chattiAPI.get(`/api/messages/?username=${username}`)
@@ -16,7 +23,14 @@ export async function getMessagesByUser(username){
 
 export async function createMessage(data){
     const response = await chattiAPI.post("/api/messages", data)
-    console.log(response.data)
+    //console.log(response.data)
+    return response.data
+
+}
+
+export async function deleteMessage(id){
+    const response = await chattiAPI.delete(`/api/messages/${id}`)
+    //console.log(response.data)
     return response.data
 
 }

@@ -9,7 +9,7 @@ import SignupForm from './SignupForm'
 import MessageForm from './MessageForm'
 import Messages from './Messages'
 import MyMessages from './MyMessages'
-import Message from './Message'
+import MessageDetails from './MessageDetails'
 import reducer from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
 const App = () => {
@@ -25,7 +25,6 @@ const App = () => {
   //store is where the state is stored
   //dispatch invoked the reducer function
   const [store, dispatch] = useReducer(reducer, initialstate )
-  const {messageList} = store
 
   //const [loggedInUser, setLoggedInUser] = useState("")
   //const [messageList, setMessageList] = useState([])
@@ -46,11 +45,6 @@ const App = () => {
       .catch(error => console.log(error))
     
   },[])
-
-  function getMessage(id){
-    return messageList.find(m=> m.id === parseInt(id))
-  }
-
   
 
   return (
@@ -65,10 +59,7 @@ const App = () => {
             </Route>
             <Route exact path="/messages"  component={Messages}/>
             <Route exact path="/messages/myMessages"  component={MyMessages}/>
-            <Route exact path="/messages/:id" 
-              render={(props)=> <Message {...props} 
-                message={getMessage(props.match.params.id)}/>}
-            />
+            <Route exact path="/messages/:id" component={MessageDetails}/>
             <Route exact path="/about" component={About}/>
             <Route exact path="/login" component={LoginForm} /> 
             <Route exact path="/signup" component={SignupForm} /> 

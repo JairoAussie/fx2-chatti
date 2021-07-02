@@ -4,7 +4,7 @@ import { createMessage } from '../services/messagesService'
 
 const MessageForm =({history})=>{
     const {store, dispatch} = useGlobalState()
-    const {loggedInUser, messageList} = store
+    const {loggedInUser} = store
 
     const initialFormData = {
         m_text: ""

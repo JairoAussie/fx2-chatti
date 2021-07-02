@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const chattiAPI = axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: 'https://chatti-api.herokuapp.com/'
 })
 
 chattiAPI.interceptors.request.use(req => {

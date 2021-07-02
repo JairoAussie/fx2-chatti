@@ -55,7 +55,7 @@ const App = () => {
           <Navigation/>
           <Switch>
             <Route exact path="/">
-              <Redirect to="messages" />
+              <Redirect to="/messages" />
             </Route>
             <Route exact path="/messages"  component={Messages}/>
             <Route exact path="/messages/myMessages"  component={MyMessages}/>

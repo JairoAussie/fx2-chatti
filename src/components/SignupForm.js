@@ -4,6 +4,7 @@ import { signUp } from '../services/authService'
 
 const SignupForm =({history})=>{
     const {dispatch} = useGlobalState()
+    const [error, setError] = useState("")
 
     console.log(history)
     const initialFormData = {
@@ -39,15 +40,16 @@ const SignupForm =({history})=>{
                 type: "setToken",
                 data: jwt
             })
+            return history.push("/messages")
         })
-        .catch()
-        
-        return history.push("/messages")
-
+        .catch(err => {
+            setError("Wrong credentials, user or email already exist, passwords don't match")
+        })
     }
 
     return(
         <div>
+            {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="text">Username:</label>
                 <input type="text" name="username" id="username" value={formData.username} onChange={handleFormData}/>

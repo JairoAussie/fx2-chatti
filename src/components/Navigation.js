@@ -31,6 +31,7 @@ const Navigation =()=>{
                 <>
                     {loggedInUser}
                     <Link to="/newmessage">Post a new message</Link>
+                    <Link to="/messages/myMessages">My messages</Link>
                     <Link to="/messages" onClick={logout}>Logout</Link>
                 </> 
             :   <>

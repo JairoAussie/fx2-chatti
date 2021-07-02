@@ -4,6 +4,7 @@ import { signIn } from '../services/authService'
 
 const LoginForm =({history})=>{
     const {dispatch} = useGlobalState()
+    const [error, setError] = useState("")
 
     //console.log(history)
     const initialFormData = {
@@ -26,26 +27,34 @@ const LoginForm =({history})=>{
         //console.log(formData.password)
         //activateUser(formData.email)
         signIn(formData)
-        .then(({username, jwt}) => {
-            sessionStorage.setItem("username", username)
-            sessionStorage.setItem("token", jwt)
-            dispatch({//action object
-                type: "setLoggedInUser",
-                data: username
-            })
-            dispatch({//action object
-                type: "setToken",
-                data: jwt
-            })
+        .then((user) => {
+            //console.log("user", user)
+            if (user.error){
+                //console.log(user.error)
+                setError(user.error)
+            }else{
+                setError("")
+                sessionStorage.setItem("username", user.username)
+                sessionStorage.setItem("token", user.jwt)
+                dispatch({//action object
+                    type: "setLoggedInUser",
+                    data: user.username
+                })
+                dispatch({//action object
+                    type: "setToken",
+                    data: user.jwt
+                })
+                return history.push("/messages")
+            }
         })
-        .catch()
-        
-        return history.push("/messages")
-
+        .catch(err => {
+            console.log(err)
+        })
     }
 
     return(
         <div>
+            {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">Email:</label>
                 <input type="email" name="email" id="email" value={formData.email} onChange={handleFormData}/>

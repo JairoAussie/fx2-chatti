@@ -1,9 +1,16 @@
 import chattiAPI from "../config/api"
 
 export async function getMessages(){
-    console.log("getMessages")
+    //console.log("getMessages")
     const response = await chattiAPI.get("/api/messages")
-    console.log(response)
+    //console.log(response)
+    return response.data
+}
+
+export async function getMessagesByUser(username){
+    //console.log("getMessages")
+    const response = await chattiAPI.get(`/api/messages/?username=${username}`)
+    //console.log(response)
     return response.data
 }
 

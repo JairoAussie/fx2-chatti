@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const chattiAPI = axios.create({
     baseURL: 'https://chatti-api.herokuapp.com/'
+    //baseURL: 'http://localhost:3000/'
 })
 
 chattiAPI.interceptors.request.use(req => {

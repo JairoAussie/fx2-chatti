@@ -38,6 +38,18 @@ export default function reducer(state, action) {
             }
         }
 
+        case "updateMessage": {
+            const message = state.messageList.find(message => message.id === parseInt(action.data.id))
+            const restOfList = state.messageList.filter((message)=>
+                message.id !== parseInt(action.data.id)
+            )
+            const updatedMessage = Object.assign(message, action.data)
+            return {
+                ...state,
+                messageList: [updatedMessage, ...restOfList]
+            }
+        }
+
         case "setLoggedInUser": {
             //update loggedinUser's value
             return {

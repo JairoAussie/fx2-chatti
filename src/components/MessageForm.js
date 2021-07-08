@@ -1,16 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGlobalState } from '../utils/stateContext'
-import { createMessage } from '../services/messagesService'
+import { createMessage, getMessageById, updateMessage } from '../services/messagesService'
+import { useParams } from 'react-router-dom'
 
 const MessageForm =({history})=>{
     const {store, dispatch} = useGlobalState()
     const {loggedInUser} = store
+    const {id} = useParams()
 
     const initialFormData = {
         m_text: ""
     }
 
     const [formData, setFormData] = useState(initialFormData)
+
+    useEffect(()=>{
+        getMessageById(id)
+        .then(message => {
+            setFormData({
+                m_text: message.text
+            })
+        })
+    }, [id])
 
     function handleFormData(e){
         setFormData({
@@ -21,8 +32,16 @@ const MessageForm =({history})=>{
 
     function handleSubmit(e){
         e.preventDefault()
-        console.log(formData)
-        createMessage(formData)
+        //console.log(formData)
+        if (id) {
+            const data = {id: id, ...formData}
+            updateMessage(data)
+            .then(message => {
+                dispatch({type: "updateMessage", data: message})
+                history.push("/messages")
+            })
+        }else{
+            createMessage(formData)
             .then((message) => {
                 console.log("add message to the list")
                 dispatch({
@@ -32,12 +51,7 @@ const MessageForm =({history})=>{
                 
             })
             .catch(error => {console.log(error)})
-        //addMessage(formData.text)
-        //clean the form after submitting
-        // setFormData({
-        //     ...formData,
-        //     m_text: ""
-        // })
+        }
         return history.push("/messages")
     }
 

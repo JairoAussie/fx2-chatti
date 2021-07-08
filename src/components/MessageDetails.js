@@ -39,8 +39,10 @@ const MessageDetails =()=>{
             <>
                 <h4>{message.text}</h4>
                 <p>{message.username} {message.posted}</p>
-                { loggedInUser === message.username && 
+                { loggedInUser === message.username && <>
+                    <button onClick={()=> history.push(`/messages/update/${id}`)}>Update message</button>
                     <button onClick={removeMessage}>Delete message</button>
+                    </>
                 }
             </>
             :
